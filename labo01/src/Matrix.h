@@ -124,20 +124,14 @@ namespace gti320
 		Matrix<_OtherScalar, _OtherRows, _OtherCols, _OtherStorage> transpose() const
 		{
 			// TODO calcule et retourne la transposée de la matrice.
+			int nbRows = rows(), nbCols = cols();
+			Matrix<_Scalar, _ColsAtCompile, _RowsAtCompile, _OtherStorage> matriceTranpose(nbCols, nbRows);
 
-			Matrix<_Scalar, _ColsAtCompile, _RowsAtCompile, _OtherStorage> matriceTranpose;
-			if (rows() == cols()) {
-				matriceTranpose.resize(rows(), cols());
-			}
-			else {
-				matriceTranpose.resize(cols(), rows());
-			}
-
-			for (size_t i = 0; i < cols(); ++i)
+			for (size_t j = 0; j < nbCols; ++j)
 			{
-				for (size_t j = 0; j < rows(); ++j)
+				for (size_t i = 0; i < nbRows; ++i)
 				{
-					matriceTranpose(i, j) = data()[(i * cols()) + j];
+					matriceTranpose(j, i) = data()[i + (j * nbRows)];
 				}
 			}
 			return matriceTranpose;
@@ -220,7 +214,7 @@ namespace gti320
 		_Scalar operator()(int i, int j) const
 		{
 			// TODO implementer
-			return data()[(m_cols * i) + j];
+			return data()[(cols() * i) + j];
 		}
 
 		/**
@@ -255,20 +249,15 @@ namespace gti320
 		{
 			// TODO calcule et retourne la transposée de la matrice.
 			//    Optimisez cette fonction en tenant compte du type de stockage utilisé.
+			int nbRows = rows(), nbCols = cols();
+			Matrix<_Scalar, _ColsAtCompile, _RowsAtCompile, ColumnStorage> matriceTranpose(nbCols, nbRows);
 
-			Matrix<_Scalar, _ColsAtCompile, _RowsAtCompile, ColumnStorage> matriceTranpose;
-			if (m_rows == m_cols) {
-				matriceTranpose.resize(m_rows, m_cols);
-			}
-			else {
-				matriceTranpose.resize(m_cols, m_rows);
-			}
 
-			for (size_t i = 0; i < m_rows; ++i)
+			for (size_t i = 0; i < nbRows; ++i)
 			{
-				for (size_t j = 0; j < m_cols; ++j)
+				for (size_t j = 0; j < nbCols; ++j)
 				{
-					matriceTranpose(j, i) = data()[(m_cols * i) + j];
+					matriceTranpose(j, i) = data()[(nbCols * i) + j];
 				}
 			}
 			return matriceTranpose;
@@ -409,13 +398,7 @@ namespace gti320
 		{
 			// TODO implémenter
 
-			Matrix<_OtherScalar, _OtherRows, _OtherCols, _OtherStorage> matriceTranpose;
-			if (m_rows == m_cols) {
-				matriceTranpose.resize(m_rows, m_cols);
-			}
-			else {
-				matriceTranpose.resize(m_cols, m_rows);
-			}
+			Matrix<_OtherScalar, _OtherRows, _OtherCols, _OtherStorage> matriceTranpose(m_cols, m_rows);
 
 			for (size_t i = 0; i < m_rows; ++i)
 			{

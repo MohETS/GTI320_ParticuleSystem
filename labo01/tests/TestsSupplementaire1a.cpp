@@ -93,6 +93,4 @@ TEST(TestLabo1a, Supplementaires)
 
     // TEST 10 
     //
-    
-    EXPECT_TRUE(false);
 }

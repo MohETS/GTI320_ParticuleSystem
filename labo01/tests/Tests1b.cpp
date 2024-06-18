@@ -748,6 +748,9 @@ TEST(TestLabo1b, PerformanceMatrixVector)
     A* v;
     const duration<double> optimal_t = duration_cast<duration<double>>(high_resolution_clock::now() - t);
 
+    cout <<  "Naive time: " << duration_cast<std::chrono::milliseconds>(naive_t).count() << " ms, "
+        << "optimized time: " << duration_cast<std::chrono::milliseconds>(optimal_t).count() << " ms";
+
     EXPECT_TRUE(optimal_t < 0.4 * naive_t)
         << "Naive time: " << duration_cast<std::chrono::milliseconds>(naive_t).count() << " ms, "
         << "optimized time: " << duration_cast<std::chrono::milliseconds>(optimal_t).count() << " ms";
@@ -775,7 +778,11 @@ TEST(TestLabo1b, PerformanceLargeMatrixMatrix)
     A + B;
     const duration<double> optimal_t = duration_cast<duration<double>>(high_resolution_clock::now() - t);
 
-    EXPECT_TRUE(optimal_t < 0.4 * naive_t);
+    cout << "Naive time: " << duration_cast<std::chrono::milliseconds>(naive_t).count() << " ms, "
+        << "optimized time: " << duration_cast<std::chrono::milliseconds>(optimal_t).count() << " ms";
+
+    EXPECT_TRUE(optimal_t < 0.4 * naive_t) << "Naive time: " << duration_cast<std::chrono::milliseconds>(naive_t).count() << " ms, "
+        << "optimized time: " << duration_cast<std::chrono::milliseconds>(optimal_t).count() << " ms";
 }
 
 /**
